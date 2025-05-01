@@ -5,15 +5,22 @@ experiments with userland access to display register in 211BSD / PiDP11
    Access to new entry in /dev/csw can be controlled like any other file.
    Unlike /dev/mem /dev/csw is writable in multiuser ( / securelevel -1 ) 
 
-   install by copying the files over,  
+   install by copying the files over,  then  
+
    copy mem.patch to /tmp  
    patch -p0 < /tmp/mem.patch  
    mknod /dev/csw c 1 4  
-   <chmod to however you want to allow r/w access)  
+
+   #chmod to however you want to allow r/w access  
+
    cd /sys/PIDP11  
-   make  
-   <observe any build errors and fix them...>   
-   <make backup of your existing kernel .. cp /unix /unix.old;cp /netnix /netnix.old>  
+   make
+   
+   #observe any build errors and fix them...  
+   #make backup of your existing kernel ..
+   #cp /unix /unix.old;cp /netnix /netnix.old
+   #or however you are accustomed to do
+   
    make install  
    reboot  
 

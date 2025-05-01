@@ -1,0 +1,38 @@
+# patch to allow switch/display register accessible by anyone
+
+# to install (should work at least on pl481 or later, ymmv) 
+
+# files changed: /usr/src/sys/pdp/mem.c
+
+# copy the patch file mem.patch to /tmp
+cp mem.patch /tmp
+
+# apply the patch 
+cd /
+patch -p0 < /tmp/mem.patch
+
+# rebuild the kernel , for PIDP11
+cd /sys/PIDP11
+make
+
+# ... wait until the build succeeds / fix overlay errors (should be none) 
+# back up the old kernel just in case if you normally do that
+# for example:
+cp /unix /unix.old 
+cp /netnix /netnix.old
+
+# install new kernel and reboot
+make install 
+
+# create the csw entry in dev 1(mem), minor 4
+mknod /dev/csw c 1 4 
+
+# reboot 
+reboot
+
+# done
+# included mem-csw  executable will print the switch values if called without
+# arguments.
+# if an argument is supplied it is assumed to be an integer string 
+# and used to set the display register value
+

@@ -1,0 +1,32 @@
+*** /usr/src/sys/pdp/mem.c.old	Thu May 16 06:49:35 1996
+--- /usr/src/sys/pdp/mem.c	Tue Apr 29 21:40:41 2025
+***************
+*** 11,16 ****
+--- 11,17 ----
+  #include "user.h"
+  #include "conf.h"
+  #include "uio.h"
++ #include "iopage.h"
+  
+  /*
+   * This routine is callable only from the high
+***************
+*** 71,76 ****
+--- 72,88 ----
+  				return(EIO);
+  			c = MIN(iov->iov_len, sizeof (zero));
+  			error = uiomove(zero, c, uio);
++ 			break;
++ /* minor device 4 is the DISPLAY/SWITCH register */
++ 		case 4:
++ 		/* allow only word sized writes for simplicity as 
++ 	   	   simh currently treats all writes to CSW as words
++ 		*/
++ 			if (iov->iov_len != 2) {
++ 				error = ENXIO;
++ 				break;
++ 			}
++ 			error = uiomove(CSW, 2, uio);
+  			break;
+  		default:
+  			return(EINVAL);

@@ -12,7 +12,7 @@ experiments with userland access to display register in 211BSD / PiDP11
    <chmod to however you want to allow r/w access)  
    cd /sys/PIDP11  
    make  
-   observer any build errors and fix them...   
+   <observe any build errors and fix them...>   
    <make backup of your existing kernel .. cp /unix /unix.old;cp /netnix /netnix.old>  
    make install  
    reboot  

@@ -26,5 +26,7 @@ experiments with userland access to display register in 211BSD / PiDP11
 
    see mem-csw.c for an example.
 
+   ... if you don't want to ruin your existing pidp11 image i can create
+   a drop-in image with the patch applied if someone wants one.
    
    
